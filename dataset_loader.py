@@ -33,8 +33,12 @@ class PneumoniaDataset(Dataset):
 
         for label, class_name in enumerate(["NORMAL", "PNEUMONIA"]):
             class_path = os.path.join(root_dir, class_name)
-            image_files = os.listdir(class_path)
+            image_files = [
+                f for f in os.listdir(class_path)
+                if f.lower().endswith(('.png', '.jpg', '.jpeg'))
+            ]
             self.image_paths.extend([os.path.join(class_path, f) for f in image_files])
+
             self.labels.extend([label] * len(image_files))
 
         # Shuffle dataset
