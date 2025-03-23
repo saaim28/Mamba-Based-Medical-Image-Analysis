@@ -2,7 +2,7 @@
 #### This repository contains a project leveraging Vision Mamba and Explainable AI (XAI) for medical image analysis, specifically targeting pneumonia detection from chest X-ray images.
 
 ## Project Overview:
-#### This project aims to implement the Vision Mamba model integrated with Explainable AI techniques to classify chest X-ray images into Pneumonia and Normal categories. The project also aims to generate explainable heatmaps to visually interpret model predictions.
+#### This project aims to implement the Vision Mamba model integrated with Explainable AI techniques to classify chest X-ray images into Pneumonia and Normal categories. The project also aims to generate explainable heatmaps to visually interpret model predictions. <br/>
 
 ## Dataset:
 ### We use the Chest X-Ray Images (Pneumonia) dataset from Kaggle:
