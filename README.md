@@ -38,3 +38,17 @@ Create and activate a Python virtual environment:
 python -m venv venv311
 source venv311/bin/activate  # On Mac/Linux
 .\venv311\Scripts\activate   # On Windows
+```
+
+### Install Required Dependencies:
+
+Create and activate a Python virtual environment:
+```bash
+pip install torch torchvision torchaudio
+pip install einops
+pip install causal-conv1d
+pip install numpy pandas matplotlib seaborn scikit-learn
+pip install jupyter notebook
+pip install tqdm
+```
+
