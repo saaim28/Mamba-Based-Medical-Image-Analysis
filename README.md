@@ -1,1 +1,1 @@
-# Mamba Based Medical Image Analysis
+## Mamba Based Medical Image Analysis for COMP 425 (Computer Vision)
