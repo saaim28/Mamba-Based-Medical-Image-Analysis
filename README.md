@@ -58,7 +58,7 @@ Clone the Mamba GitHub Repository:
 ```bash
 git clone https://github.com/state-spaces/mamba.git
 ```
-⚠️Important: The original Mamba repo is GPU-only. You used a CPU-compatible patch by modifying selective_scan_interface.py to disable Triton kernels for use on Colab/Mac.
+#### ⚠️Important: The original Mamba repo is GPU-only. You used a CPU-compatible patch by modifying selective_scan_interface.py to disable Triton kernels for use on Colab/Mac.
 ---
 
 
@@ -68,7 +68,7 @@ Train the Model::
 ```bash
 python mamba_train.py
 ```
-This: Trains the Vision Mamba Model for 15 epochs, Tracks loss, accuracy, and saves the best model, and Plots confusion matrix to outputs/confusion_matrix.png
+#### This: Trains the Vision Mamba Model for 15 epochs, Tracks loss, accuracy, and saves the best model, and Plots confusion matrix to outputs/confusion_matrix.png
 ---
 
 
@@ -78,25 +78,25 @@ After Training:
 ```bash
 python mamba_test_loader.py
 ```
-This: Loads example X-ray images, Runs inference using the best saved model, Generates Grad-CAM heatmaps to outputs/gradcam/
+#### This: Loads example X-ray images, Runs inference using the best saved model, Generates Grad-CAM heatmaps to outputs/gradcam/
 ---
 
 
 ### Known Limitations:
 Low Recall (0.48) for "Normal" class
 Model tends to overpredict Pneumonia. Could be addressed via:
-- Class rebalancing or Focal Loss
-- More diverse augmentation for Normal class
-- Grad-CAM visualization may be coarse due to low feature resolution (16x16)
+#### - Class rebalancing or Focal Loss
+#### - More diverse augmentation for Normal class
+#### - Grad-CAM visualization may be coarse due to low feature resolution (16x16)
   ---
 
 
 ### Files Overview: 
-mamba_model.py – VisionMambaClassifier architecture <br />
-dataset_loader.py – Dataset loading and transforms <br />
-mamba_train.py – Training + evaluation loop <br />
-mamba_test_loader.py – Grad-CAM inference and visualization <br />
-gradcam.py – Grad-CAM logic + heatmap generation <br />
+#### mamba_model.py – VisionMambaClassifier architecture <br />
+#### dataset_loader.py – Dataset loading and transforms <br />
+#### mamba_train.py – Training + evaluation loop <br />
+#### mamba_test_loader.py – Grad-CAM inference and visualization <br />
+#### gradcam.py – Grad-CAM logic + heatmap generation <br />
 
 
 
