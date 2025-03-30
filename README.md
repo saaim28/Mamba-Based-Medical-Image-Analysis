@@ -58,7 +58,7 @@ Clone the Mamba GitHub Repository:
 ```bash
 git clone https://github.com/state-spaces/mamba.git
 ```
-##### ⚠️Important: The original Mamba repo is GPU-only. You used a CPU-compatible patch by modifying selective_scan_interface.py to disable Triton kernels for use on Colab/Mac.
+##### ⚠️Important: The original Mamba repo is GPU-only. You can use a CPU-compatible patch by modifying selective_scan_interface.py to disable Triton kernels for use on Colab/Mac.
 ---
 
 
