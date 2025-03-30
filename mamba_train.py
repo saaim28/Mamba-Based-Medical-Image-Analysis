@@ -74,11 +74,11 @@ for epoch in range(EPOCHS):
         torch.save(model.state_dict(), "best_mamba_model.pth")
         print(f"[Epoch {epoch+1}] 🔥 New best model saved (Val Acc: {val_acc:.2f}%)")
 
-print("\n✅ Training complete.")
-print(f"🥇 Best Validation Accuracy: {best_val_acc:.2f}%")
+print("\n Training complete.")
+print(f"Best Validation Accuracy: {best_val_acc:.2f}%")
 
 # Test Evaluation
-print("\n🧪 Evaluating on Test Set...")
+print("\nEvaluating on Test Set...")
 model.load_state_dict(torch.load("best_mamba_model.pth"))
 model.eval()
 
@@ -96,7 +96,7 @@ with torch.no_grad():
 
 # Results
 class_names = ["Normal", "Pneumonia"]
-print("\n📊 Classification Report:")
+print("\nClassification Report:")
 print(classification_report(y_true, y_pred, target_names=class_names, zero_division=0))
 
 cm = confusion_matrix(y_true, y_pred)
