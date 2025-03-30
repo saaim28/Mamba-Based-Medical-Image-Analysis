@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from dataset_loader import train_loader, val_loader
-from test_loader import test_loader  # ✅ make sure this returns your test DataLoader
+from test_loader import test_loader
 from mamba_model import VisionMambaClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
@@ -10,44 +10,23 @@ import matplotlib.pyplot as plt
 import os
 os.makedirs("outputs", exist_ok=True)
 
-
-# ========================
-# ✅ Setup
-# ========================
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = VisionMambaClassifier().to(device)
-# ========================
-# 🎯 Smoothed Weighted Loss
-# ========================
-# Extract all labels from the training dataset
+
+# Weighted Loss (Based on True Class Distribution)
 label_list = [label for _, label in train_loader.dataset]
-
-# Count samples per class
 class_counts = torch.bincount(torch.tensor(label_list))
 total_samples = class_counts.sum().item()
-
-# Smoothed class weights: inversely proportional, but clipped
-class_weights = [1.8, 1.0]  # Higher weight to Normal class
+class_weights = [total_samples / c.item() for c in class_counts]  
 weights_tensor = torch.FloatTensor(class_weights).to(device)
 loss_fn = nn.CrossEntropyLoss(weight=weights_tensor)
 
-# Count samples per class
-class_counts = torch.bincount(torch.tensor(label_list))
-total_samples = class_counts.sum().item()
-
-# Compute inverse frequency weights
-class_weights = [total_samples / count.item() for count in class_counts]
-weights_tensor = torch.FloatTensor(class_weights).to(device)
-
-# Apply weighted loss
-loss_fn = nn.CrossEntropyLoss(weight=weights_tensor)
+# Optimizer & Epochs
 optimizer = optim.Adam(model.parameters(), lr=0.001)
-EPOCHS = 6
+EPOCHS = 15
 best_val_acc = 0.0
 
-# ========================
-# 🚂 Training Loop
-# ========================
+# Training Loop
 for epoch in range(EPOCHS):
     model.train()
     running_loss = 0
@@ -98,9 +77,7 @@ for epoch in range(EPOCHS):
 print("\n✅ Training complete.")
 print(f"🥇 Best Validation Accuracy: {best_val_acc:.2f}%")
 
-# ========================
-# 🧪 Test Evaluation
-# ========================
+# Test Evaluation
 print("\n🧪 Evaluating on Test Set...")
 model.load_state_dict(torch.load("best_mamba_model.pth"))
 model.eval()
@@ -117,9 +94,7 @@ with torch.no_grad():
         y_true.extend(labels.cpu().numpy())
         y_pred.extend(preds.cpu().numpy())
 
-# ========================
-# 📊 Results
-# ========================
+# Results
 class_names = ["Normal", "Pneumonia"]
 print("\n📊 Classification Report:")
 print(classification_report(y_true, y_pred, target_names=class_names, zero_division=0))
