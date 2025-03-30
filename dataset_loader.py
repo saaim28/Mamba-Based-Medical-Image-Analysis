@@ -10,7 +10,7 @@ DATASET_PATH = "chest_xray"
 
 # Define transformations
 train_transforms = transforms.Compose([
-    transforms.Resize((224, 224)),  # Resize to 224x224 for Vision Mamba compatibility
+    transforms.Resize((64, 64)),  # Resize to 64x64 for Vision Mamba compatibility
     transforms.RandomHorizontalFlip(p=0.5),  # Augmentation: Random flip
     transforms.RandomRotation(10),  # Small rotation
     transforms.ToTensor(),  # Convert to PyTorch tensor
@@ -18,7 +18,7 @@ train_transforms = transforms.Compose([
 ])
 
 test_transforms = transforms.Compose([
-    transforms.Resize((224, 224)),
+    transforms.Resize((64, 64)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5], std=[0.5])
 ])
@@ -66,11 +66,11 @@ val_dataset = PneumoniaDataset(os.path.join(DATASET_PATH, "val"), transform=test
 test_dataset = PneumoniaDataset(os.path.join(DATASET_PATH, "test"), transform=test_transforms)
 
 # Create dataloaders
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=2)
 val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=2)
 test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=2)
 
 # Check dataset size
-print(f"Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}")
+print(f"Train: {len(train_dataset)}, Val: {len(val_dataset)}, Test: {len(test_dataset)}") 
